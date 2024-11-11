@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<main class="main">
+<head>
+  <meta charset="utf-8">
+  <title>TimeQuill</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="../styles.css">
+
+
+</head>
+<body>
+<nav class="navbar is-transparent">
+  <div class="navbar-brand">
+    <a class="header-logo" href="/">
+      <img src="/timequillinv.svg" alt="TimeQuill Logo" width="160" height="50" style="margin-left: 15px; margin-top: 10px">
+    </a>
+    <div class="navbar-burger js-burger" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/projects"> Project List </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button is-primary" href="/account">
+              <span>Account</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+</body>
+</main>
+<router-outlet />
+

@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap');
+
+* {
+  font-family: 'Fredoka', sans-serif;
+  overflow: hidden; /* Hide scrollbars */
+
+}
+
+#header-logo{
+  background: url('/public/timequillinv.svg') no-repeat center center;
+  background-size: auto;
+  width: 1px
+}
