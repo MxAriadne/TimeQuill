@@ -15,14 +15,15 @@ public class HomeController {
         // Retrieve the current authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = null;
+        String status = "Login";
 
         // Check if the user is authenticated
-        if (authentication != null && authentication.isAuthenticated()) {
-            username = authentication.getName();
-        }
+        if (authentication != null && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser"))
+                username = authentication.getName();
 
         // Use the username if available, or the default name
         model.addAttribute("name", username != null ? username : name);
+        model.addAttribute("status", username != null ? "Account" : status);
 
         return "home";
     }

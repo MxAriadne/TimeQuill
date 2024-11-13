@@ -6,8 +6,16 @@
 
 }
 
+.login_container form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 #header-logo{
-  background: url('/public/timequillinv.svg') no-repeat center center;
+  background: url('timequillinv.svg') no-repeat center center;
   background-size: auto;
   width: 1px
 }
