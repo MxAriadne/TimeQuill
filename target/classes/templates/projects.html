@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TimeQuill</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" th:href="@{/assets/styles.css}">
+</head>
+<body>
+<nav class="navbar is-transparent">
+    <div class="navbar-brand">
+        <a class="header-logo" href="/">
+            <img th:src="@{/assets/timequillinv.svg}" alt="TimeQuill Logo" width="160" height="50">
+        </a>
+    </div>
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="">Home</a>
+            <a class="navbar-item" href="/projects">Project List</a>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button is-danger" id="logout-button">
+                        Logout
+                    </button>
+                </form>
+                <a class="button is-primary" href="/login">
+                    Account
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="create_project">
+    <div class="create_project_container">
+        <form th:action="@{/projects/create}" method="post">
+            <div class="field">
+                <label class="label" for="projName">Project Name</label>
+                <input class="input" type="text" id="projName" name="projName" required>
+            </div>
+            <div class="field">
+                <label class="label" for="description">Description</label>
+                <input class="input" type="text" id="description" name="description" required>
+            </div>
+            <div class="field">
+                <label class="label" for="manager_id">Manager ID</label>
+                <input class="input" type="text" id="manager_id" name="manager_id" required>
+            </div>
+            <div class="field">
+                <label class="label" for="start_date">Start Date</label>
+                <input class="input" type="date" id="start_date" name="start_date" required>
+            </div>
+            <div class="field">
+                <label class="label" for="end_date">End Date</label>
+                <input class="input" type="date" id="end_date" name="end_date" required>
+            </div>
+            <button type="submit" class="button is-primary">
+                Create New Project
+            </button>
+        </form>
+    </div>
+</section>
+
+<section class="project_list">
+    <h2>Existing Projects</h2>
+    <table class="table is-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${projects}">
+            <div class = "has-background-grey-dark">
+                <td th:text="${item.name}">Project Name</td>
+                <td th:text="${item.description}">Project Description</td>
+                <td th:text="${item.startDate}">Start Date</td>
+                <td th:text="${item.endDate}">End Date</td>
+                <td>
+                    <form action="@{/projects/info}" th:action="@{/projects/info}" method="get">
+                        <input type="hidden" name="projectId" th:value="${item.id}">
+                        <button type="submit" class="button is-danger">
+                            Open Project
+                        </button>
+                    </form>
+                </td>
+            </div>   
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

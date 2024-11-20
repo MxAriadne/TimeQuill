@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "TimeQuillApplication",
+      "request": "launch",
+      "mainClass": "com.hedgehog.timequill.TimeQuillApplication",
+      "projectName": "timequill"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",

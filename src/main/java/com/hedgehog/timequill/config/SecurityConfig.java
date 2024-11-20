@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/assets/**", "/account/login/**").permitAll() // Allow public access to these paths
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/projects/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Restrict access to `/admin` paths to users with `ADMIN` role
                         .anyRequest().authenticated() // Secure all other requests
                 )

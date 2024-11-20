@@ -43,6 +43,7 @@
                                     <span>Logout</span>
                                 </button>
                             </form>
+                        </p>
                         <p class="control">
                             <a class="button is-primary" href="/login">
                                 <span id="login-status" th:text="${status}"></span>
@@ -55,12 +56,13 @@
 
     </nav>
 
-    <section class="hero is-primary" style="margin-top: 5px">
-        <div class="hero-body">
-            <p class="title">Welcome to TimeQuill!</p>
-            <p class="subtitle">Hi, <span th:text="${name}"></span>!</p>
-        </div>
-    </section>
+    <div class="form-group">
+        <label for="projName"w>Project Name</label>
+        <input type="number" class="form-control" id="projName" name="projName" required>
+    </div>
+    
+
+    
 
     </body>
 </html>

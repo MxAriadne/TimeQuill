@@ -10,3 +10,4 @@ public class TimeQuillApplication {
         SpringApplication.run(TimeQuillApplication.class, args);
     }
 }
+    
