@@ -34,8 +34,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         // Check password
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            System.out.println(user.getUsername());
-            System.out.println(user.getPassword());
             throw new BadCredentialsException("Invalid username or password");
         }
 

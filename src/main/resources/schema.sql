@@ -2,6 +2,7 @@ drop table if exists assignments;
 drop table if exists invoices;
 drop table if exists time_table;
 drop table if exists projects;
+drop table if exists users;
 
 CREATE TABLE IF NOT EXISTS users (
                                      id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -23,8 +24,6 @@ CREATE TABLE IF NOT EXISTS projects (
                                         end_date DATE, -- Contract end date
                                         FOREIGN KEY (manager_id) REFERENCES users(id) ON DELETE SET NULL
 );
-DROP TABLE IF EXISTS time_table;
-DROP TABLE IF EXISTS assignments;
 
 -- Create the time_table
 CREATE TABLE IF NOT EXISTS time_table (
@@ -55,6 +54,7 @@ CREATE TABLE IF NOT EXISTS assignments (
 
 -- Insert initial data
 INSERT INTO users (username, password, manager) VALUES ('admin1', '$2y$10$f48C9/lnCr63yFnGGmAT1eXpkTwzvdItqffxTWDaT/Xj7Qfq2J8nO', 1);
+INSERT INTO users (username, password, manager) VALUES ('user1', '$2y$10$f48C9/lnCr63yFnGGmAT1eXpkTwzvdItqffxTWDaT/Xj7Qfq2J8nO', 0);
 INSERT INTO projects (name, description, manager_id, client_name, start_date, end_date) VALUES ('Time Quill', 'Time tracking app', 1, 'Client A', '2023-05-01', '2023-05-31');
 INSERT INTO assignments (id, user_id, project_id, rate, description, assigned_by) VALUES (1, 1, 1, 100, 'Description', 1);
-INSERT INTO assignments (id, user_id, project_id, rate, description, assigned_by) VALUES (3, 1, 1, 105, 'Description2', 1);
+INSERT INTO assignments (id, user_id, project_id, rate, description, assigned_by) VALUES (2, 1, 1, 105, 'Description2', 1);

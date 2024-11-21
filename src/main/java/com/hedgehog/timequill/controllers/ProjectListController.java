@@ -29,13 +29,8 @@ import static java.lang.Integer.parseInt;
 @Controller
 public class ProjectListController {
 
-    private ProjectRepository projectRepo;
-
     @Autowired
-    public ProjectListController(ProjectRepository projectRepo)
-    {
-        this.projectRepo=projectRepo;
-    }
+    private ProjectRepository projectRepo;
 
     @Autowired
     private UserRepository userRepo;
@@ -47,7 +42,6 @@ public class ProjectListController {
     public String view(Model model) {
         List<ProjectEntity> projects = (List<ProjectEntity>) projectRepo.findAll();
         model.addAttribute("projects", projects);
-        //System.out.print(projects);
         return "projects";
     }
 
@@ -64,18 +58,17 @@ public class ProjectListController {
     }
 
     @PostMapping("/projects")
-    public String postHandlingProjects(@RequestParam(value = "create_project_button")
-                                       int create_project_button, String projectList)
+    public String postHandlingProjects(@RequestParam(value = "create_project_button") int create_project_button, String projectList)
     {
         if(create_project_button > 0)
         {
             return "/projects";
         }
-        return "/project/create";
+        return "/projects/create";
     }
 
     @GetMapping("/projects/create")
-    public String loadcreateProject()
+    public String loadCreateProject()
     {
         return "projects/create";
     }
@@ -96,7 +89,7 @@ public class ProjectListController {
         project.setStartDate(start_date);
         project.setEndDate(end_date);
         projectRepo.save(project);
-        return "projects";
+        return "redirect:/projects";
     }
 
     @PostMapping("/projects/create-assignment")
@@ -117,5 +110,12 @@ public class ProjectListController {
         assignmentRepo.save(assignment);
 
         return "redirect:/projects/info?projectId=" + projectId;
+    }
+
+    @PostMapping("/projects/delete-assignment")
+    public String deleteAssignment(@RequestParam String assignmentId) {
+        AssignmentEntity assignment = assignmentRepo.findById(parseInt(assignmentId)).get();
+        assignmentRepo.delete(assignment);
+        return "redirect:/projects/info?projectId=" + assignment.getProject().getId();
     }
 }

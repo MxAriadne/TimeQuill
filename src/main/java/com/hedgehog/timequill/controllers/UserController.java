@@ -5,17 +5,23 @@ import com.hedgehog.timequill.repo.UserRepository;
 import com.hedgehog.timequill.services.DBUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
 
-    private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepo;
+
     private PasswordEncoder passwordEncoder;
     private DBUserService userDetailsManager;
 
@@ -35,7 +41,18 @@ public class UserController {
     }
 
     @GetMapping("/account/view")
-    public String view() {
+    public String view(Model model) {
+        UserEntity user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserEntity manager = null;
+        try {
+            manager = userRepo.findById(user.getManagerId().getId()).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("manager", manager);
+        model.addAttribute("user", user);
+
         return "/account/userView";
     }
 
@@ -44,7 +61,7 @@ public class UserController {
         UserEntity u = new UserEntity();
         u.setUsername(username);
         u.setPassword(passwordEncoder.encode(password));
-        userRepository.save(u);
+        userRepo.save(u);
         return "Saved";
     }
 

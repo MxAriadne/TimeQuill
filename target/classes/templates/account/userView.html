@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>User View - TimeQuill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" th:href="@{/assets/styles.css}">
+</head>
+<body>
+<section>
+<nav class="navbar is-transparent">
+    <div class="navbar-brand">
+        <a class="header-logo" href="/">
+            <img th:src="@{/assets/timequillinv.svg}" alt="TimeQuill Logo" width="160" height="50">
+        </a>
+    </div>
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/projects">Project List</a>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button is-danger" id="logout-button">
+                        Logout
+                    </button>
+                </form>
+                <a class="button is-primary" href="/account/view">
+                    Account
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+</section>
+<section>
+<div class="container">
+    <section class="hero is-link is-medium">
+    <div class="hero-body">
+        <div class="container has-text-left">
+            <p class="title">Your name is <span th:text="${user.username}"></p>
+        </div>
+    </div>
+    </section>
+    <section class="hero is-primary is-medium">
+        <div class="hero-body">
+            <div class="container has-text-right">
+                <p class="title">You possess the role of: <span th:if="${user.getManager()}" th:text="'Manager'"></span> <span th:if="${user.getManager() == false}" th:text="'Employee'"></span></p>
+            </div>
+        </div>
+    </section>
+    <section class="hero is-info is-medium">
+        <div class="hero-body">
+            <div class="container has-text-left">
+                <p class="title">Your direct supervisor is: <span th:if="${manager == null}" th:text="'Yourself!'"></span> <span th:if="${manager != null}" th:text="${manager.getUsername()}"></span></p>
+            </div>
+        </div>
+    </section>
+</div>
+</section>
+
+</body>
+</html>
