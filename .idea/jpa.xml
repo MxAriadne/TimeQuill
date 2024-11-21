@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JpaBuddyIdeaProjectConfig">
-    <option name="reLastEntityCreationPackage" value="src/main/java/com/hedgehog/timequill/config/entities" />
-    <option name="reverseEngineeringLastDbConnectionId" value="62005336-959e-46c0-b232-069b9046f022" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/com/hedgehog/timequill/entities" />
+    <option name="reverseEngineeringLastDbConnectionId" value="a28a043f-bbc0-4469-9922-aa51de3737b3" />
   </component>
 </project>

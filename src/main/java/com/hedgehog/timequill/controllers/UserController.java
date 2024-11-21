@@ -1,6 +1,6 @@
 package com.hedgehog.timequill.controllers;
 
-import com.hedgehog.timequill.config.entities.UserEntity;
+import com.hedgehog.timequill.entities.UserEntity;
 import com.hedgehog.timequill.repo.UserRepository;
 import com.hedgehog.timequill.services.DBUserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,9 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
-import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller

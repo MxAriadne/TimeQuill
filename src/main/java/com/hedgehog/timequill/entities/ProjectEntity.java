@@ -1,4 +1,4 @@
-package com.hedgehog.timequill.config.entities;
+package com.hedgehog.timequill.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,21 +11,15 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "invoices", schema = "timequill")
-public class InvoiceEntity {
+@Table(name = "projects")
+public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "number")
-    private String number;
-
-    @Column(name = "issue_date")
-    private LocalDate issueDate;
-
-    @Column(name = "amount")
-    private Double amount;
+    @Column(name = "name")
+    private String name;
 
     @Lob
     @Column(name = "description")
@@ -33,7 +27,16 @@ public class InvoiceEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    @JoinColumn(name = "project_id")
-    private ProjectEntity project;
+    @JoinColumn(name = "manager_id")
+    private UserEntity manager;
+
+    @Column(name = "client_name")
+    private String clientName;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
 
 }

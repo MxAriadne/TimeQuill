@@ -1,6 +1,6 @@
 package com.hedgehog.timequill.config;
 
-import com.hedgehog.timequill.config.entities.UserEntity;
+import com.hedgehog.timequill.entities.UserEntity;
 import com.hedgehog.timequill.repo.UserRepository;
 import com.hedgehog.timequill.services.DBUserService;
 import org.springframework.beans.factory.annotation.Autowired;

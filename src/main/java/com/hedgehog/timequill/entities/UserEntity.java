@@ -1,4 +1,4 @@
-package com.hedgehog.timequill.config.entities;
+package com.hedgehog.timequill.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

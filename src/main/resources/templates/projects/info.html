@@ -40,7 +40,57 @@
 
 
     <section class="projectInfo">
-        <h2>Project Id: <span th:text="${projectId}"></span></h2>
+        <h2>Project Id: <span th:text="${projectInfo.id}"></span></h2>
+    </section>
+
+
+    <section class="create_project">
+        <div class="create_project_container">
+            <form th:action="@{/projects/create-assignment}" method="post">
+                <div class="field">
+                    <label class="label" for="userName">Assign To User</label>
+                    <input class="input" type="text" id="userName" name="userName" required>
+                </div>
+                <div class="field">
+                    <label class="label" for="rate">Rate</label>
+                    <input class="input" type="text" id="rate" name="rate" required>
+                </div>
+                <div class="field">
+                    <label class="label" for="description">Description</label>
+                    <input class="input" type="text" id="description" name="description" required>
+                </div>
+                <input type="hidden" name="projectId" th:value="${projectInfo.id}">
+                <button type="submit" class="button is-primary">
+                    New Assignment
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section class="assignment_list">
+        <br><br>
+        <table class="table is-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Assigned User</th>
+                <th>Rate</th>
+                <th>Description</th>
+                <th>Manager</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="assignment : ${assignmentSet}">
+                <div class = "has-background-grey-dark">
+                        <td th:text="${assignment.id}">Assignment ID</td>
+                        <td th:text="${assignment.user.username}">Assigned To</td>
+                        <td th:text="${assignment.rate}">Rate</td>
+                        <td th:text="${assignment.description}">Description</td>
+                        <td th:text="${assignment.assignedBy.username}">Manager</td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
     </section>
 
 </body>

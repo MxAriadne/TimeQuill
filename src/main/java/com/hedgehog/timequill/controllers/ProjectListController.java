@@ -1,22 +1,30 @@
 package com.hedgehog.timequill.controllers;
 
+import com.hedgehog.timequill.entities.AssignmentEntity;
+import com.hedgehog.timequill.repo.AssignmentRepository;
 import com.hedgehog.timequill.repo.ProjectRepository;
-import com.hedgehog.timequill.config.entities.ProjectEntity;
-import com.hedgehog.timequill.config.entities.UserEntity;
+import com.hedgehog.timequill.entities.ProjectEntity;
 
+import com.hedgehog.timequill.repo.TimeTableRepository;
+import com.hedgehog.timequill.repo.UserRepository;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Set;
+
+import static java.lang.Integer.parseInt;
 
 @Controller
 public class ProjectListController {
@@ -29,6 +37,12 @@ public class ProjectListController {
         this.projectRepo=projectRepo;
     }
 
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private AssignmentRepository assignmentRepo;
+
     @GetMapping("/projects")
     public String view(Model model) {
         List<ProjectEntity> projects = (List<ProjectEntity>) projectRepo.findAll();
@@ -40,8 +54,12 @@ public class ProjectListController {
     @GetMapping("projects/info")
     public String projView(Model model, @RequestParam(value = "projectId", required = true) String projectId)
     {
-        model.addAttribute("projectId", projectId);
-        System.out.print(projectId);
+        ProjectEntity project = projectRepo.findById(parseInt(projectId)).get();
+        Set<AssignmentEntity> assignmentSet = assignmentRepo.findByProject(project);
+
+        model.addAttribute("projectInfo", project);
+        model.addAttribute("assignmentSet", assignmentSet);
+
         return "projects/info";
     }
 
@@ -62,24 +80,42 @@ public class ProjectListController {
         return "projects/create";
     }
 
-    //@GetMapping("/projects/info")
-    //public String gotoProject() {
-    //    return "/projects/info";
-    //}
 
     @PostMapping("/projects/create")
     public @ResponseBody String createProject(@RequestParam String projName,
                                               @RequestParam String description,
                                               //@RequestParam String manager_id,
+                                              @RequestParam String clientName,
                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end_date) {
         ProjectEntity project = new ProjectEntity();
+
         project.setName(projName);
         project.setDescription(description);
-        //project.setManager((UserEntity) manager_id);
+        project.setClientName(clientName);
         project.setStartDate(start_date);
         project.setEndDate(end_date);
         projectRepo.save(project);
-        return "Project created successfully!";
+        return "projects";
+    }
+
+    @PostMapping("/projects/create-assignment")
+    public String createAssignment(@RequestParam String projectId,
+                                               @RequestParam String description,
+                                               @RequestParam String userName,
+                                               @RequestParam double rate
+                                               ) {
+        ProjectEntity project = projectRepo.findById(parseInt(projectId)).get();
+        AssignmentEntity assignment = new AssignmentEntity();
+
+        assignment.setAssignedBy(userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        assignment.setDescription(description);
+        assignment.setProject(project);
+        assignment.setRate(rate);
+        assignment.setUser(userRepo.findByUsername(userName));
+        assignment.setAssignedDate(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        assignmentRepo.save(assignment);
+
+        return "redirect:/projects/info?projectId=" + projectId;
     }
 }
