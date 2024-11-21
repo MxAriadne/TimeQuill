@@ -1,6 +1,6 @@
 package com.hedgehog.timequill.config;
 
-import com.hedgehog.timequill.config.entities.UserEntity;
+import com.hedgehog.timequill.entities.UserEntity;
 import com.hedgehog.timequill.repo.UserRepository;
 import com.hedgehog.timequill.services.DBUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         // Check password
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            System.out.println(user.getUsername());
-            System.out.println(user.getPassword());
             throw new BadCredentialsException("Invalid username or password");
         }
 

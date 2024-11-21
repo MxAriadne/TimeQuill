@@ -1,9 +1,6 @@
 package com.hedgehog.timequill.repo;
 
-import com.hedgehog.timequill.config.entities.ProjectEntity;
-import com.hedgehog.timequill.config.entities.UserEntity;
-
-import java.util.Optional;
+import com.hedgehog.timequill.entities.ProjectEntity;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 // CRUD refers Create, Read, Update, Delete
 
 public interface ProjectRepository extends CrudRepository<ProjectEntity, Integer> {
-    //Optional<ProjectEntity> findByManager(int id);
+    ProjectEntity findByName(String projName);
 }

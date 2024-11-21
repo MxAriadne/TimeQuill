@@ -6,13 +6,51 @@
 
 }
 
-.login_container form{
+.login_container form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
 }
+
+.create_assignment .assignment_container form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.create_assignment .assignment_container form input {
+    width: 90%;
+    margin: 10px;
+}
+
+#assignment-button {
+  scale: 90%;
+  margin: 10px auto;
+}
+
+.assignment_list table, .project_list table {
+  display: table;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.create_project .create_project_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.create_project .create_project_container form {
+    width: 80%;
+    margin: 10px;
+}
+
 
 #header-logo{
   background: url('timequillinv.svg') no-repeat center center;
