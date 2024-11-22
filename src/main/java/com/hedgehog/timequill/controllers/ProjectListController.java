@@ -1,6 +1,7 @@
 package com.hedgehog.timequill.controllers;
 
 import com.hedgehog.timequill.entities.AssignmentEntity;
+import com.hedgehog.timequill.entities.UserEntity;
 import com.hedgehog.timequill.repo.AssignmentRepository;
 import com.hedgehog.timequill.repo.ProjectRepository;
 import com.hedgehog.timequill.entities.ProjectEntity;
@@ -51,8 +52,16 @@ public class ProjectListController {
         ProjectEntity project = projectRepo.findById(parseInt(projectId)).get();
         Set<AssignmentEntity> assignmentSet = assignmentRepo.findByProject(project);
 
+        UserEntity user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Set<AssignmentEntity> userAssignments = assignmentRepo.findByUserId(user.getId());
+
         model.addAttribute("projectInfo", project);
-        model.addAttribute("assignmentSet", assignmentSet);
+
+        if (Boolean.TRUE.equals(user.getManager())) {
+            model.addAttribute("assignmentSet", assignmentSet);
+        } else {
+            model.addAttribute("assignmentSet", userAssignments);
+        }
 
         return "projects/info";
     }
@@ -77,12 +86,10 @@ public class ProjectListController {
     @PostMapping("/projects/create")
     public @ResponseBody String createProject(@RequestParam String projName,
                                               @RequestParam String description,
-                                              //@RequestParam String manager_id,
                                               @RequestParam String clientName,
                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end_date) {
         ProjectEntity project = new ProjectEntity();
-
         project.setName(projName);
         project.setDescription(description);
         project.setClientName(clientName);

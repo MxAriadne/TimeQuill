@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Projects - TimeQuill</title>
+    <title>Time Log - TimeQuill</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
@@ -31,51 +31,31 @@
     </div>
 </nav>
 <br><br>
-<section>
-    <div>
-        <form th:action="@{/projects/create}" method="get">
-            <button type="submit" class="button is-primary">
-                Create New Project
-            </button>
-        </form>
-    </div>
-</section>
-
-</br>
-
 <section class="project_list">
-    <h1 class="title">Existing Projects</h1>
+    <h1 class="title">Assignment Time Log</h1>
     <br><br><br>
     <table class="table is-striped">
         <thead>
         <tr>
-            <th>Client Name</th>
-            <th>Project Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th>User ID</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Total Time</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${projects}">
+        <tr th:each="item : ${timeTables}">
             <div class = "has-background-grey-dark">
-                <td th:text="${item.clientName}">Client Name</td>
-                <td th:text="${item.name}">Project Name</td>
-                <td th:text="${item.description}">Project Description</td>
-                <td th:text="${item.startDate}">Start Date</td>
-                <td th:text="${item.endDate}">End Date</td>
+                <td th:text="${item.getUser().getUsername()}"></td>
+                <td th:text="${item.getStartTime()}"></td>
+                <td th:text="${item.getEndTime()}"></td>
+                <td th:text="${item.getWorkedHours()}"></td>
                 <td>
-                    <form th:action="@{/projects/info}" method="get" style="display: inline-block; margin-right: 5px">
-                        <input type="hidden" name="projectId" th:value="${item.id}">
+                    <form th:action="@{/time-log/delete}" method="post" style="display: inline-block; margin-right: 5px">
+                        <input type="hidden" name="timeTableId" th:value="${item.id}">
                         <button type="submit" class="button is-danger">
-                            Open Project
-                        </button>
-                    </form>
-                    <form th:action="@{/generate}" method="post" style="display: inline-block;">
-                        <input type="hidden" name="projectId" th:value="${item.id}">
-                        <button type="submit" class="button is-info">
-                            Generate Invoice
+                            Delete Record
                         </button>
                     </form>
                 </td>

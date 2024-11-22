@@ -22,7 +22,10 @@ public class UserController {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private DBUserService userDetailsManager;
 
     @GetMapping("/login")
@@ -57,12 +60,21 @@ public class UserController {
     }
 
     @PostMapping("/account/create")
-    public @ResponseBody String create(@RequestParam String username, @RequestParam String password) {
+    public @ResponseBody String create(@RequestParam String username, @RequestParam String password, @RequestParam String title, @RequestParam String supervisor) {
+
+        boolean isManager = false;
+        if (title.equals("Manager")) {
+            isManager = true;
+        }
+
         UserEntity u = new UserEntity();
         u.setUsername(username);
         u.setPassword(passwordEncoder.encode(password));
+        u.setManager(isManager);
+        u.setManagerId(userRepo.findByUsername(supervisor));
+        u.setLocked(false);
         userRepo.save(u);
-        return "Saved";
+        return "redirect:/account/admin";
     }
 
 }

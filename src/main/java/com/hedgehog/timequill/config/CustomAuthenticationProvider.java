@@ -37,7 +37,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid username or password");
         }
 
-        // Create authentication token
         return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
     }
 

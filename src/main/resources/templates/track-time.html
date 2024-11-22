@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Track Time - TimeQuill</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" th:href="@{/assets/styles.css}">
+</head>
+
+<body>
+<nav class="navbar is-transparent">
+    <div class="navbar-brand">
+        <a class="header-logo" href="/">
+            <img th:src="@{/assets/timequillinv.svg}" alt="TimeQuill Logo" width="160" height="50">
+        </a>
+    </div>
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/projects">Project List</a>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button is-danger" id="logout-button">
+                        Logout
+                    </button>
+                </form>
+                <a class="button is-primary" href="/account/view">
+                    Account
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="create_project">
+    <h1 class="title">Track Time</h1>
+    <br><br><br>
+    <div class="create_project_container">
+        <form th:action="@{/tracker}" method="post">
+            <div class="field" >
+                <label class="label" for="start_time">Start Time</label>
+                <input class="input" type="time" id="start_time" name="start_time" required>
+            </div>
+            <div class="field" >
+                <label class="label" for="end_time">End Time</label>
+                <input class="input" type="time" id="end_time" name="end_time" required>
+            </div>
+            <div class="field">
+            </div>
+            <input type="hidden" name="timeTableId" th:value="${assignmentId}">
+            <button type="submit" class="button is-info">
+                Track Time
+            </button>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

@@ -11,4 +11,6 @@ import java.util.Set;
 
 public interface AssignmentRepository extends CrudRepository<AssignmentEntity, Integer> {
     Set<AssignmentEntity> findByProject(ProjectEntity project);
+
+    Set<AssignmentEntity> findByUserId(Integer id);
 }

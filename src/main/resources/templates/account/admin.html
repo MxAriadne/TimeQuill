@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin View - TimeQuill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" th:href="@{/assets/styles.css}">
+</head>
+<body>
+<section>
+    <nav class="navbar is-transparent">
+        <div class="navbar-brand">
+            <a class="header-logo" href="/">
+                <img th:src="@{/assets/timequillinv.svg}" alt="TimeQuill Logo" width="160" height="50">
+            </a>
+        </div>
+        <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/projects">Project List</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="button is-danger" id="logout-button">
+                            Logout
+                        </button>
+                    </form>
+                    <a class="button is-primary" href="/account/view">
+                        Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</section>
+<br><br><br><br><br>
+<section>
+    <h1 >Enroll New Employee</h1>
+    <section class="create_assignment">
+        <div class="assignment_container">
+            <form th:action="@{/account/create}" method="post">
+                <div class="field">
+                    <input class="input" type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="field">
+                    <input class="input" type="text" id="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="field">
+                    <input class="input" type="text" id="supervisor" name="supervisor" placeholder="Supervisor" required>
+                </div>
+                <div class="field">
+                    <select name="title" id="title">
+                        <optgroup>
+                            <option selected>Manager</option>
+                            <option>Employee</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="field">
+                    <button id="assignment-button" type="submit" class="button is-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+<br><br><br><br><br>
+<section class="users">
+    <h1 >Change User Roles</h1>
+    <form method="post" th:action="@{/account/admin/update-user}">
+        <div class="field">
+            <div class="field">
+                <input class="input" type="text" id="userId" name="userId" placeholder="User ID" required>
+            </div>
+            <div class="field">
+                <select name="role" id="role">
+                    <optgroup>
+                        <option selected>Manager</option>
+                        <option>Employee</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="field">
+                <button id="update-button" type="submit" class="button is-primary">Update</button>
+            </div>
+        </div>
+    </form>
+</section>
+<br><br><br><br><br>
+<section class="users">
+    <h1 >Lock/Unlock Users Accounts</h1>
+    <form method="post" th:action="@{/account/admin/control-access}">
+        <div class="field">
+            <div class="field">
+                <input class="input" type="text" name="userId" placeholder="User ID" required>
+            </div>
+            <div class="field">
+                <button type="submit" class="button is-info">Unlock/Lock</button>
+            </div>
+        </div>
+    </form>
+</section>
+<br><br><br><br><br>
+<section class="project_list">
+    <h1 >Remove Accounts</h1>
+        <table class="table is-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Supervisor</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <div class = "has-background-grey-dark">
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getUsername()}"></td>
+                    <td th:if="${user.getManagerId() != null}" th:text="${user.managerId.getUsername()}"></td>
+                    <td th:if="${user.getManagerId() == null}">None</td>
+                    <td th:if="${user.getLocked() == true}">Locked</td>
+                    <td th:if="${user.getLocked() == false}">Unlocked</td>
+                    <td>
+                        <form th:action="@{/accounts/delete}" method="get" style="display: inline-block; margin-right: 5px">
+                            <input type="hidden" name="userId" th:value="${user.getId()}">
+                            <button type="submit" class="button is-danger">
+                                Delete User
+                            </button>
+                        </form>
+                    </td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+</section>
+</body>
+</html>

@@ -29,8 +29,6 @@ public class DBUserService implements UserDetailsService {
         return user;
     }
 
-
-
     public void createUser(UserDetails user) {
         userRepository.save((UserEntity) user);
     }

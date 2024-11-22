@@ -3,11 +3,10 @@ package com.hedgehog.timequill.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -35,12 +34,11 @@ public class TimeTableEntity {
     private AssignmentEntity assignment;
 
     @Column(name = "start_time")
-    private Instant startTime;
+    private LocalTime startTime;
 
     @Column(name = "end_time")
-    private Instant endTime;
+    private LocalTime endTime;
 
-    @ColumnDefault("timestampdiff(SECOND, `start_time`, `end_time`) / 3600")
     @Column(name = "worked_hours")
     private Double workedHours;
 

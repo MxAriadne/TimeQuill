@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap');
 
 * {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Fredoka', sans-serif !important;
   overflow: hidden; /* Hide scrollbars */
-
 }
 
 .login_container form {
@@ -14,17 +13,34 @@
   height: 100vh;
 }
 
-.create_assignment .assignment_container form {
+.users form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-.create_assignment .assignment_container form input {
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: aliceblue;
+}
+
+.create_assignment .assignment_container form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.create_assignment .assignment_container form input, .users form input {
     width: 90%;
     margin: 10px;
+    text-align: center;
 }
 
 #assignment-button {
@@ -32,11 +48,37 @@
   margin: 10px auto;
 }
 
+.users form button {
+    display: block;
+    scale: 90%;
+    margin: auto;
+}
+
+.users form select , .assignment_container form select{
+    font-size: 18px !important;
+    scale: 80%;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+.users form select, .users form option, .assignment_container form select, .assignment_container form option {
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    background-color: dimgray;
+    color: aliceblue;
+    text-align: center;
+}
+
+optgroup option {
+    font-size: 16px !important;
+    border-radius: 8px;
+    text-align: center;
+}
+
 .assignment_list table, .project_list table {
-  display: table;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  width: 120%;
 }
 
 .create_project .create_project_container {

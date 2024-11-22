@@ -34,11 +34,14 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/assets/**", "/account/login/**").permitAll() // Allow public access to these paths
+                        .requestMatchers("/", "/assets/**", "/account/login/**", "/track-time").permitAll() // Allow public access to these paths
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/generate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/projects/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Restrict access to `/admin` paths to users with `ADMIN` role
+                        .requestMatchers(HttpMethod.POST, "/tracker").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/account/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/account/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/account/admin/**").hasAnyAuthority("ADMIN") // Restrict access to `/admin` paths to users with `ADMIN` role
                         .anyRequest().authenticated() // Secure all other requests
                 )
                 .formLogin(form -> form
