@@ -1,48 +1,55 @@
 ![alt text](https://github.com/MxAriadne/TimeQuill/blob/main/src/main/resources/static/assets/timequillinv.svg?raw=true)
+<img src="[image-url](https://github.com/MxAriadne/TimeQuill/blob/main/src/main/resources/static/assets/timequillinv.svg)" alt="Alt Text" width="300" height="200">
 # TimeQuill
  A time tracking and invoicing software made for CSCI 6180
 
  
 ## Prerequisites:
- jdk 23.0.1
- SpringBoot
- Bulma
- MySql Server
+* jdk 23.0.1
+* SpringBoot
+* Bulma
+* MySql Server
  
 ## Installation Instructions:
- Provide step-by-step instructions to set up the environment.
+    Provide step-by-step instructions to set up the environment.
  
 ## Execution Instructions:
- Clearly state how to run the project. Include any scripts or commands needed to start the application.
+    Clearly state how to run the project. Include any scripts or commands needed to start the application.
  
 ## Input/Output Explanation:
- Describe the expected inputs and outputs. Include example input files, formats, and output data.
+     Describe the expected inputs and outputs. Include example input files, formats, and output data.
 Inputs:
 
-    - For login: username and password
+* For login: username and password
         - Output: Login session
         
-    - For creating projects: Project fields
+* For creating projects: Project fields
         - Output: Project items is loaded into the database and displayed
         
-    - For creating times: Time fields
+* For creating times: Time fields
         - Output: Times items is loaded into the database and displayed
         
-    - For admins creating users: Creating user fields
+* For admins creating users: Creating user fields
         - Output: New login credentials are logged into the authentication table
         
-    - For generating invoice pdfs:
+* For generating invoice pdfs:
         - Output: Download of a .pdf file with data of the invoice
     
 ## Features:
+
 Encrypted authentication system
+
 Creating and editing projects and working times
+
 Generating PDFs of projects based on rates and hours
+
 Being able to edit who is working on a project and their assignments
  
 ## Troubleshooting:
-Common Errors will be in this section if any are found to be re-occuring.
+    Common Errors will be in this section if any are found to be re-occuring.
  
 ## Acknowledgements: 
-Credit to Slack Overflow for its usefulness in debugging and explaining code.
-All work for this assignment was completed by the team members listed at the beginning of the document and entirely without the use of artificial intelligence tools such as ChatGPT, MS Copilot, other LLMs, etc.
+    Credit to Slack Overflow for its usefulness in debugging and explaining code.
+    All code for this assignment was completed by the team members listed at the beginning of the document and entirely without the use of artificial intelligence tools such as ChatGPT, MS Copilot, other LLMs, etc.
+    The image/logo for this project was created using Dall-E
+ 
