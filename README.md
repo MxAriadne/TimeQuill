@@ -1,5 +1,4 @@
-![alt text](https://github.com/MxAriadne/TimeQuill/blob/main/src/main/resources/static/assets/timequillinv.svg?raw=true)
-<img src="[image-url](https://github.com/MxAriadne/TimeQuill/blob/main/src/main/resources/static/assets/timequillinv.svg)" alt="Alt Text" width="300" height="200">
+![](https://github.com/MxAriadne/TimeQuill/blob/main/src/main/resources/static/assets/timequillinv.svg?raw=true | width=100)
 # TimeQuill
  A time tracking and invoicing software made for CSCI 6180
 
