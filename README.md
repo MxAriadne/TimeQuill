@@ -1,3 +1,4 @@
+![alt text](https://github.com/MxAriadne/TimeQuill/blob/main/src/main/resources/static/assets/timequillinv.svg?raw=true)
 # TimeQuill
  A time tracking and invoicing software made for CSCI 6180
 
