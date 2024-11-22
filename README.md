@@ -17,14 +17,19 @@
 ## Input/Output Explanation:
  Describe the expected inputs and outputs. Include example input files, formats, and output data.
 Inputs:
+
     - For login: username and password
         - Output: Login session
+        
     - For creating projects: Project fields
         - Output: Project items is loaded into the database and displayed
+        
     - For creating times: Time fields
         - Output: Times items is loaded into the database and displayed
+        
     - For admins creating users: Creating user fields
         - Output: New login credentials are logged into the authentication table
+        
     - For generating invoice pdfs:
         - Output: Download of a .pdf file with data of the invoice
     
