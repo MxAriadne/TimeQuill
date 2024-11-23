@@ -1,9 +1,3 @@
-drop table if exists invoices;
-drop table if exists time_table;
-drop table if exists assignments;
-drop table if exists projects;
-drop table if exists users;
-
 CREATE TABLE IF NOT EXISTS users (
                                      id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                      manager TINYINT(1), -- Is the user a manager (0 or 1)
@@ -64,12 +58,3 @@ BEGIN
 END $$
 
 DELIMITER ;
-
--- Insert initial data
-INSERT INTO users (username, password, manager, manager_id, is_locked) VALUES ('admin1', '$2y$10$f48C9/lnCr63yFnGGmAT1eXpkTwzvdItqffxTWDaT/Xj7Qfq2J8nO', 1, NULL, 0);
-INSERT INTO users (username, password, manager, manager_id, is_locked) VALUES ('user1', '$2y$10$f48C9/lnCr63yFnGGmAT1eXpkTwzvdItqffxTWDaT/Xj7Qfq2J8nO', 0, 1, 0);
-INSERT INTO users (username, password, manager, manager_id, is_locked) VALUES ('user2', '$2y$10$f48C9/lnCr63yFnGGmAT1eXpkTwzvdItqffxTWDaT/Xj7Qfq2J8nO', 0, 1, 0);
-INSERT INTO projects (name, description, manager_id, client_name, start_date, end_date) VALUES ('Time Quill', 'Time tracking app', 1, 'Client A', '2023-05-01', '2023-05-31');
-INSERT INTO assignments (id, user_id, project_id, rate, description, assigned_by) VALUES (1, 1, 1, 100, 'Description', 1);
-INSERT INTO assignments (id, user_id, project_id, rate, description, assigned_by) VALUES (2, 1, 1, 105, 'Description2', 1);
-
