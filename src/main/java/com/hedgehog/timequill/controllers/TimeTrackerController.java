@@ -29,13 +29,16 @@ public class TimeTrackerController {
     @Autowired
     private UserRepository userRepo;
 
+    // redirect to time tracker with id
     @GetMapping("/tracker")
     public String track(Model model, @RequestParam(value = "assignmentId", required = true) String assignmentId) {
         return "redirect:/track-time?assignmentId=" + assignmentId;
     }
 
+    // log time for an assignment
     @PostMapping("/tracker")
-    public String logTime(@RequestParam String start_time, @RequestParam String end_time, @RequestParam String assignmentId) {
+    public String logTime(@RequestParam String start_time, @RequestParam String end_time,
+            @RequestParam String assignmentId) {
         TimeTableEntity timeTable = new TimeTableEntity();
         timeTable.setStartTime(LocalTime.parse(start_time));
         timeTable.setEndTime(LocalTime.parse(end_time));
@@ -46,19 +49,23 @@ public class TimeTrackerController {
         return "redirect:/projects/info?projectId=" + timeTable.getProject().getId();
     }
 
+    // go to time tracker with id
     @GetMapping("/track-time")
     public String trackTime(Model model, @RequestParam(value = "assignmentId", required = true) String assignmentId) {
         model.addAttribute("assignmentId", assignmentId);
         return "track-time";
     }
 
+    // get logged time for an assignment
     @GetMapping("/time-log")
     public String showLog(@RequestParam(value = "assignmentId", required = true) String assignmentId, Model model) {
-        Iterable<TimeTableEntity> timeTables = timeTableRepo.findAllByAssignment(assignmentRepo.findById(parseInt(assignmentId)).get());
+        Iterable<TimeTableEntity> timeTables = timeTableRepo
+                .findAllByAssignment(assignmentRepo.findById(parseInt(assignmentId)).get());
         model.addAttribute("timeTables", timeTables);
         return "/time-log";
     }
 
+    // delete a time log entry
     @PostMapping("/time-log/delete")
     public String delete(@RequestParam String timeTableId) {
         TimeTableEntity timeTable = timeTableRepo.findById(parseInt(timeTableId)).get();

@@ -31,6 +31,7 @@ public class InvoiceController {
     @Autowired
     private AssignmentRepository assignmentRepo;
 
+    // post invoices, generates a PDF of invoice
     @PostMapping("/generate")
     public void generateInvoice(@RequestParam(value = "projectId") String projectId, HttpServletResponse response) {
 
@@ -53,7 +54,7 @@ public class InvoiceController {
             document.add(new Paragraph("Project Details: " + project.getDescription()));
             document.add(new Paragraph("\n"));
 
-            float[] columnWidths = {200, 100, 100, 100};
+            float[] columnWidths = { 200, 100, 100, 100 };
             Table table = new Table(columnWidths);
             table.addHeaderCell(new Cell().add("Task"));
             table.addHeaderCell(new Cell().add("Hours"));

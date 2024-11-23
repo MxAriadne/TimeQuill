@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
+// Project entity mapped to projects table.
 @Getter
 @Setter
 @Entity

@@ -39,6 +39,7 @@ public class ProjectListController {
     @Autowired
     private AssignmentRepository assignmentRepo;
 
+    // get a list of projects
     @GetMapping("/projects")
     public String view(Model model) {
         List<ProjectEntity> projects = (List<ProjectEntity>) projectRepo.findAll();
@@ -46,9 +47,9 @@ public class ProjectListController {
         return "projects";
     }
 
+    // get details of a project by id
     @GetMapping("projects/info")
-    public String projView(Model model, @RequestParam(value = "projectId", required = true) String projectId)
-    {
+    public String projView(Model model, @RequestParam(value = "projectId", required = true) String projectId) {
         ProjectEntity project = projectRepo.findById(parseInt(projectId)).get();
         Set<AssignmentEntity> assignmentSet = assignmentRepo.findByProject(project);
 
@@ -67,28 +68,26 @@ public class ProjectListController {
     }
 
     @PostMapping("/projects")
-    public String postHandlingProjects(@RequestParam(value = "create_project_button") int create_project_button, String projectList)
-    {
-        if(create_project_button > 0)
-        {
+    public String postHandlingProjects(@RequestParam(value = "create_project_button") int create_project_button,
+            String projectList) {
+        if (create_project_button > 0) {
             return "/projects";
         }
         return "/projects/create";
     }
 
     @GetMapping("/projects/create")
-    public String loadCreateProject()
-    {
+    public String loadCreateProject() {
         return "projects/create";
     }
 
-
+    // create a new project
     @PostMapping("/projects/create")
     public @ResponseBody String createProject(@RequestParam String projName,
-                                              @RequestParam String description,
-                                              @RequestParam String clientName,
-                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
-                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end_date) {
+            @RequestParam String description,
+            @RequestParam String clientName,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end_date) {
         ProjectEntity project = new ProjectEntity();
         project.setName(projName);
         project.setDescription(description);
@@ -99,16 +98,17 @@ public class ProjectListController {
         return "redirect:/projects";
     }
 
+    // create an assignment for a project
     @PostMapping("/projects/create-assignment")
     public String createAssignment(@RequestParam String projectId,
-                                               @RequestParam String description,
-                                               @RequestParam String userName,
-                                               @RequestParam double rate
-                                               ) {
+            @RequestParam String description,
+            @RequestParam String userName,
+            @RequestParam double rate) {
         ProjectEntity project = projectRepo.findById(parseInt(projectId)).get();
         AssignmentEntity assignment = new AssignmentEntity();
 
-        assignment.setAssignedBy(userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        assignment.setAssignedBy(
+                userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         assignment.setDescription(description);
         assignment.setProject(project);
         assignment.setRate(rate);
@@ -119,6 +119,7 @@ public class ProjectListController {
         return "redirect:/projects/info?projectId=" + projectId;
     }
 
+    // delete project assignment
     @PostMapping("/projects/delete-assignment")
     public String deleteAssignment(@RequestParam String assignmentId) {
         AssignmentEntity assignment = assignmentRepo.findById(parseInt(assignmentId)).get();

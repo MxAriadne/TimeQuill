@@ -28,14 +28,15 @@ public class UserController {
     @Autowired
     private DBUserService userDetailsManager;
 
+    // get login, returns login page
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpSession session) {
         session.setAttribute(
-                "error", "SPRING_SECURITY_LAST_EXCEPTION"
-        );
+                "error", "SPRING_SECURITY_LAST_EXCEPTION");
         return "/account/userLogin";
     }
 
+    // logs user out, performs clean up, and redirects to homepage
     @GetMapping("/account/logout")
     public String userLogout(HttpSecurity http) throws Exception {
         HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter());
@@ -43,6 +44,7 @@ public class UserController {
         return "redirect:/";
     }
 
+    // gets current user and their manager
     @GetMapping("/account/view")
     public String view(Model model) {
         UserEntity user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -59,8 +61,10 @@ public class UserController {
         return "/account/userView";
     }
 
+    // post new user, creates a new user account
     @PostMapping("/account/create")
-    public @ResponseBody String create(@RequestParam String username, @RequestParam String password, @RequestParam String title, @RequestParam String supervisor) {
+    public @ResponseBody String create(@RequestParam String username, @RequestParam String password,
+            @RequestParam String title, @RequestParam String supervisor) {
 
         boolean isManager = false;
         if (title.equals("Manager")) {

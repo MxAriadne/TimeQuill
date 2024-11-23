@@ -15,16 +15,20 @@ public class HomeController {
     @Autowired
     UserRepository userRepo;
 
+    // get current user authentication, if authenticated set user attributes
     @GetMapping("/")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue=" please login to continue using TimeQuill!") String name, Model model) {
+    public String greeting(
+            @RequestParam(name = "name", required = false, defaultValue = " please login to continue using TimeQuill!") String name,
+            Model model) {
         // Retrieve the current authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = null;
         String status = "Login";
 
         // Check if the user is authenticated
-        if (authentication != null && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser"))
-                username = authentication.getName();
+        if (authentication != null && authentication.isAuthenticated()
+                && !authentication.getName().equals("anonymousUser"))
+            username = authentication.getName();
 
         // Use the username if available, or the default name
         model.addAttribute("name", username != null ? username : name);

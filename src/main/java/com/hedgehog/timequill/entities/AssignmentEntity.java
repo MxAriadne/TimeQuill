@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 
+// Assignment entity mapped to assignments table. Assignments are associated with a project and a user.
 @Getter
 @Setter
 @Entity

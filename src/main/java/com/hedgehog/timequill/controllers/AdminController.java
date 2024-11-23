@@ -15,12 +15,14 @@ import java.util.Set;
 
 import static java.lang.Integer.parseInt;
 
+// handles admin tasks for users
 @Controller
 public class AdminController {
 
     @Autowired
     UserRepository userRepo;
 
+    // get all users for admin view
     @GetMapping("/account/admin")
     public String adminView(Model model) {
         Iterable<UserEntity> users = userRepo.findAll();
@@ -30,6 +32,7 @@ public class AdminController {
         return "/account/admin";
     }
 
+    // delete user by id
     @PostMapping("/account/delete")
     public String delete(@RequestParam String userId) {
         UserEntity user = userRepo.findById(parseInt(userId)).get();
@@ -37,6 +40,7 @@ public class AdminController {
         return "redirect:/account/admin";
     }
 
+    // lock a user account by id
     @PostMapping("/account/admin/control-access")
     public String controlAccess(@RequestParam String userId) {
         UserEntity user = userRepo.findByUsername(userId);
@@ -45,6 +49,7 @@ public class AdminController {
         return "redirect:/account/admin";
     }
 
+    // change a user role to be admin
     @PostMapping("/account/admin/update-user")
     public String assignManager(@RequestParam String userId, @RequestParam String role) {
         UserEntity user = userRepo.findByUsername(userId);

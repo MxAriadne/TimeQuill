@@ -16,55 +16,66 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 import javax.sql.DataSource;
 
+// Configures security settings
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private final UserRepository userRepository;
+        @Autowired
+        private final UserRepository userRepository;
 
-    @Autowired
-    private DataSource dataSource;
+        @Autowired
+        private DataSource dataSource;
 
-    public SecurityConfig(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+        public SecurityConfig(UserRepository userRepository) {
+                this.userRepository = userRepository;
+        }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/assets/**", "/account/login/**", "/track-time").permitAll() // Allow public access to these paths
-                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/generate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/projects/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/tracker").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/account/admin/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/account/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers("/account/admin/**").hasAnyAuthority("ADMIN") // Restrict access to `/admin` paths to users with `ADMIN` role
-                        .anyRequest().authenticated() // Secure all other requests
-                )
-                .formLogin(form -> form
-                        .loginPage("/login") // Custom login page URL
-                        .defaultSuccessUrl("/", true) // Redirect here after successful login
-                        .failureUrl("/login?error=true") // Redirect here on failure
-                        .permitAll()
-                )
-                .csrf(csrf -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
-                )
-                .logout(LogoutConfigurer::permitAll) // Permit all users to access logout
-                .sessionManagement(session -> session
-                        .sessionFixation().migrateSession() // Prevent session fixation attacks
-                );
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers("/", "/assets/**", "/account/login/**", "/track-time")
+                                                .permitAll() // Allow public access to these paths
+                                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/generate").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/projects/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/tracker").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/account/admin/**")
+                                                .hasAnyAuthority("ADMIN")
+                                                .requestMatchers(HttpMethod.POST, "/account/**")
+                                                .hasAnyAuthority("ADMIN")
+                                                .requestMatchers("/account/admin/**").hasAnyAuthority("ADMIN") // Restrict
+                                                                                                               // access
+                                                                                                               // to
+                                                                                                               // `/admin`
+                                                                                                               // paths
+                                                                                                               // to
+                                                                                                               // users
+                                                                                                               // with
+                                                                                                               // `ADMIN`
+                                                                                                               // role
+                                                .anyRequest().authenticated() // Secure all other requests
+                                )
+                                .formLogin(form -> form
+                                                .loginPage("/login") // Custom login page URL
+                                                .defaultSuccessUrl("/", true) // Redirect here after successful login
+                                                .failureUrl("/login?error=true") // Redirect here on failure
+                                                .permitAll())
+                                .csrf(csrf -> csrf
+                                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                                                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+                                .logout(LogoutConfigurer::permitAll) // Permit all users to access logout
+                                .sessionManagement(session -> session
+                                                .sessionFixation().migrateSession() // Prevent session fixation attacks
+                                );
 
-        return http.build();
-    }
+                return http.build();
+        }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
 }

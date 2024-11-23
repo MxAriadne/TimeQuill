@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalTime;
 
+// Time table entity mapped to time table. Time tables are associated with a projects, assignments, and users.
 @Getter
 @Setter
 @Entity

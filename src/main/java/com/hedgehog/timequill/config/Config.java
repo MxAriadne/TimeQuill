@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+// Reads the database connection properties from the properties file to use in configuring a data source bean
 @Configuration
 public class Config {
 

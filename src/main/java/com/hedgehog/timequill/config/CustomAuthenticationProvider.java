@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+// Based on the AuthenticationProvider interface, responsible for user authentication
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 

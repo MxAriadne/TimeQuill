@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+// User entity mapped to users table. User implements UserDetails interface allowing additional information to be stored with the user security itmes.
 @Getter
 @Setter
 @Entity
