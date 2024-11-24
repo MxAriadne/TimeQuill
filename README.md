@@ -8,7 +8,13 @@
 * MySql Server
  
 ## Installation Instructions:
-Provide step-by-step instructions to set up the environment.
+Step-by-step instructions to set up the environment.
+- Install MariaDB or MySQL
+- Download the schema.sql source file from the root of the repository.
+- Import the file using SQL Workbench or create a database named timequill and run 'timequill < schema.sql' in SQL CLI
+- Download and extract the latest release in the releases tab.
+- Open the batch file (Based on whether you chose MySQL or MariaDB) and enter your database name, password, and port.
+- Run the batch file.
  
 ## Execution Instructions:
 Clearly state how to run the project. Include any scripts or commands needed to start the application.
