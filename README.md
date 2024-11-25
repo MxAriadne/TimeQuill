@@ -17,11 +17,10 @@ Step-by-step instructions to set up the environment.
 - Run the batch file.
  
 ## Execution Instructions:
-Clearly state how to run the project. Include any scripts or commands needed to start the application.
+- Run the batch file.
  
 ## Input/Output Explanation:
 Describe the expected inputs and outputs. Include example input files, formats, and output data.
-#### Inputs:
 
 * For login: username and password
   * Output: Login session
