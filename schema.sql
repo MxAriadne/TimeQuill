@@ -58,3 +58,5 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+INSERT INTO users (username, password, manager, manager_id, is_locked) VALUES ('admin1', '$2y$10$f48C9/lnCr63yFnGGmAT1eXpkTwzvdItqffxTWDaT/Xj7Qfq2J8nO', 1, NULL, 0);
