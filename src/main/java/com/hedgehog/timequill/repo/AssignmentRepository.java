@@ -2,6 +2,7 @@ package com.hedgehog.timequill.repo;
 
 import com.hedgehog.timequill.entities.AssignmentEntity;
 import com.hedgehog.timequill.entities.ProjectEntity;
+import com.hedgehog.timequill.entities.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
@@ -13,4 +14,6 @@ public interface AssignmentRepository extends CrudRepository<AssignmentEntity, I
     Set<AssignmentEntity> findByProject(ProjectEntity project);
 
     Set<AssignmentEntity> findByUserId(Integer id);
+
+    Set<AssignmentEntity> findByProjectIdAndUser(int i, UserEntity user);
 }

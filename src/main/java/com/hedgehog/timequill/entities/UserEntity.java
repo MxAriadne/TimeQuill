@@ -42,6 +42,16 @@ public class UserEntity implements UserDetails {
     private UserEntity managerId;
 
     @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         final List<SimpleGrantedAuthority> authorities = new LinkedList<>();
         if (this.getManager()) {

@@ -18,19 +18,9 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="timequill@localhost" uuid="7de4dc12-db54-44f8-a4c0-a9311c7fb2f7">
-      <database-info product="MariaDB" version="10.6.18-MariaDB-0ubuntu0.22.04.1" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.3.3" dbms="MARIADB" exact-version="10.6.18" exact-driver-version="3.3">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>hedgehog</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
+    <data-source name="timequill@localhost" uuid="a28a043f-bbc0-4469-9922-aa51de3737b3">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" />
+      <schema-mapping />
     </data-source>
   </component>
 </project>

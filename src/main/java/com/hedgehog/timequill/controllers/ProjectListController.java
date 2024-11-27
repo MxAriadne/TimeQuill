@@ -54,7 +54,7 @@ public class ProjectListController {
         Set<AssignmentEntity> assignmentSet = assignmentRepo.findByProject(project);
 
         UserEntity user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Set<AssignmentEntity> userAssignments = assignmentRepo.findByUserId(user.getId());
+        Set<AssignmentEntity> userAssignments = assignmentRepo.findByProjectIdAndUser(parseInt(projectId), user);
 
         model.addAttribute("projectInfo", project);
 
@@ -83,7 +83,7 @@ public class ProjectListController {
 
     // create a new project
     @PostMapping("/projects/create")
-    public @ResponseBody String createProject(@RequestParam String projName,
+    public String createProject(@RequestParam String projName,
             @RequestParam String description,
             @RequestParam String clientName,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
