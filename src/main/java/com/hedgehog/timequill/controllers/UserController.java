@@ -63,7 +63,7 @@ public class UserController {
 
     // post new user, creates a new user account
     @PostMapping("/account/create")
-    public @ResponseBody String create(@RequestParam String username, @RequestParam String password,
+    public String create(@RequestParam String username, @RequestParam String password,
             @RequestParam String title, @RequestParam String supervisor) {
 
         boolean isManager = false;
