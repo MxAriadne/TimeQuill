@@ -126,4 +126,11 @@ public class ProjectListController {
         assignmentRepo.delete(assignment);
         return "redirect:/projects/info?projectId=" + assignment.getProject().getId();
     }
+
+    @PostMapping("/projects/delete-project")
+    public String deleteProject(@RequestParam String projectId) {
+        ProjectEntity p = projectRepo.findById(parseInt(projectId)).get();
+        projectRepo.delete(p);
+        return "redirect:/projects";
+    }
 }

@@ -68,7 +68,7 @@
                 <td>
                     <form th:action="@{/projects/info}" method="get" style="display: inline-block; margin-right: 5px">
                         <input type="hidden" name="projectId" th:value="${item.id}">
-                        <button type="submit" class="button is-danger">
+                        <button type="submit" class="button is-primary">
                             Open Project
                         </button>
                     </form>
@@ -76,6 +76,12 @@
                         <input type="hidden" name="projectId" th:value="${item.id}">
                         <button type="submit" class="button is-info">
                             Generate Invoice
+                        </button>
+                    </form>
+                    <form th:action="@{/projects/delete-project}" method="post" style="display: inline-block;">
+                        <input type="hidden" name="projectId" th:value="${item.id}">
+                        <button type="submit" class="button is-danger">
+                            Delete
                         </button>
                     </form>
                 </td>
